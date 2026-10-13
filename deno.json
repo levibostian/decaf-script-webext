@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@levibostian/decaf-sdk": "jsr:@levibostian/decaf-sdk@0.7.0",
+    "@levibostian/mock-a-bin": "jsr:@levibostian/mock-a-bin@1.1.0",
+    "@david/dax": "jsr:@david/dax@0.43.2",
+    "@std/assert": "jsr:@std/assert@1.0.14",
+    "@std/cli": "jsr:@std/cli@1.0.23",
+    "@std/path": "jsr:@std/path@1.1.5"
+  },
+  "tasks": {
+    "test": "deno test --allow-all --junit-path reports/junit.xml --coverage=reports/coverage/",
+    "lint": "deno lint --fix",
+    "run": "deno run --quiet --allow-env --allow-net --allow-run --allow-read --allow-write script.ts"
+  }
+}

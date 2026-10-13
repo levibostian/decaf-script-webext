@@ -1,0 +1,33 @@
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - uses: jdx/mise-action@v4
+
+    - name: Install dependencies
+      run: deno install --frozen
+
+    - name: Run Deno tests
+      run: deno task test
+
+    - name: Generate coverage report 
+      run: deno coverage --lcov --output=reports/coverage.lcov reports/coverage/
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-results
+        path: reports/junit.xml
+
+    - name: Annotate failed tests
+      if: always() # Run with test/lint failures.
+      uses: granodigital/report-annotate@v1.0.1
+      with:
+        reports: |
+          junit|reports/junit.xml
